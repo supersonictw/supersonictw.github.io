@@ -4,9 +4,14 @@
 一個業餘的渣渣網工，實際是一名學生
 
 ## 需要更進一步聯絡？
+歡迎多多指教><
+
 [Facebook](https://facebook.com/startw333)
+
 [Line](https://line.me/)
+
 [Instagram](https://instagram.com/supersonictw)
+
 [Twitter](https://twitter.com/yuuki_yusaku)
 
 ### 2018/08/18 移動至GitHub
