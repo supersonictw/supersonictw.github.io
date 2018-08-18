@@ -8,7 +8,7 @@
 
 [Facebook](https://facebook.com/startw333)
 
-[Line](https://line.me/GW0FoYRnOP)
+[Line](https://line.me/ti/p/GW0FoYRnOP)
 
 [Instagram](https://instagram.com/supersonictw)
 
