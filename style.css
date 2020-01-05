@@ -14,8 +14,11 @@ body {
     font-size: 13px;
 }
 
-a {
+a,
+a:link,
+a:visited {
     color: #7f8c8d;
+    text-decoration: none;
 }
 
 h1,
