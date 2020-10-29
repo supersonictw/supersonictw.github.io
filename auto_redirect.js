@@ -15,7 +15,7 @@ switch (function () {
     case "leetcode":
         window.location.href = $("#leetcode").attr("href");
         break;
-    case "sof":
+    case "stackoverflow":
         window.location.href = $("#stackoverflow").attr("href");
         break;
     case "apktw":
