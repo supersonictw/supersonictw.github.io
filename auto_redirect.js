@@ -1,45 +1,45 @@
 // (c) 2020 SuperSonic (https://randychen.tk)
 
-switch (function () {
-    var reg = new RegExp("(^|&)add=([^&]*)(&|$)");
-    var r = window.location.search.substr(1).match(reg);
+const conversion_table_for_add = {
+    github: "#github",
+    gitlab: "#gitlab",
+    leetcode: "#leetcode",
+    stackoverflow: "#stackoverflow",
+    apktw: "#apktw",
+    mdn: "#mdn",
+    msdn: "#msdn",
+    blog: "#blog",
+    fb: "#facebook",
+    ig: "#instagram",
+    twitter: "#twitter",
+    linkedin: "#linkedin"
+}
+
+const conversion_table_for_cv = {
+    cie: "cv4cie.html"
+}
+
+const get_url_parameter = (index) => {
+    const query_pattern = "(^|&)" + index + "=([^&]*)(&|$)";
+    const reg = new RegExp(query_pattern);
+    const r = window.location.search.substr(1).match(reg);
     if (r != null) return unescape(r[2]);
     return null;
-}()) {
-    case "github":
-        window.location.href = $("#github").attr("href");
-        break;
-    case "gitlab":
-        window.location.href = $("#gitlab").attr("href");
-        break;
-    case "leetcode":
-        window.location.href = $("#leetcode").attr("href");
-        break;
-    case "sof":
-        window.location.href = $("#stackoverflow").attr("href");
-        break;
-    case "apktw":
-        window.location.href = $("#apktw").attr("href");
-        break;
-    case "mdn":
-        window.location.href = $("#mdn").attr("href");
-        break;
-    case "msdn":
-        window.location.href = $("#msdn").attr("href");
-        break;
-    case "blog":
-        window.location.href = $("#blog").attr("href");
-        break;
-    case "fb":
-        window.location.href = $("#facebook").attr("href");
-        break;
-    case "ig":
-        window.location.href = $("#instagram").attr("href");
-        break;
-    case "twitter":
-        window.location.href = $("#twitter").attr("href");
-        break;
-    case "linkedin":
-        window.location.href = $("#linkedin").attr("href");
-        break;
 }
+
+const redirect = () => {
+    // SNS Add Links
+    const dom_id_for_add_url = conversion_table_for_add[get_url_parameter("add")];
+    if (dom_id_for_add_url != null) {
+        window.location.href = $(dom_id_for_add_url).attr("href");
+        return 1;
+    }
+    // Curriculum Vitae Links
+    const id_for_cv = get_url_parameter("cv");
+    if (id_for_cv != null) {
+        window.location.href = conversion_table_for_cv[id_for_cv];
+        return 2;
+    }
+}
+
+redirect();
