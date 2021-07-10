@@ -1,4 +1,4 @@
-// (c) 2020 SuperSonic (https://randychen.tk)
+// (c) 2021 SuperSonic (https://randychen.tk)
 
 const conversion_table_for_add = {
     github: "#github",
@@ -20,11 +20,8 @@ const conversion_table_for_cv = {
 }
 
 const get_url_parameter = (index) => {
-    const query_pattern = "(^|&)" + index + "=([^&]*)(&|$)";
-    const reg = new RegExp(query_pattern);
-    const r = window.location.search.substr(1).match(reg);
-    if (r != null) return unescape(r[2]);
-    return null;
+    const params = new URLSearchParams(window.location.search);
+    return params.get(index)
 }
 
 const redirect = () => {
