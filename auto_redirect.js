@@ -1,14 +1,17 @@
 // (c) 2021 SuperSonic (https://randychen.tk)
 
 const conversion_table_for_add = {
+    blog: "#blog",
+    nex: "#nex",
     github: "#github",
     gitlab: "#gitlab",
+    medium: "#medium",
+    apktw: "#apktw",
     leetcode: "#leetcode",
     stackoverflow: "#stackoverflow",
-    apktw: "#apktw",
     mdn: "#mdn",
     msdn: "#msdn",
-    blog: "#blog",
+    ms_docs: "#ms_docs",
     fb: "#facebook",
     ig: "#instagram",
     twitter: "#twitter",
