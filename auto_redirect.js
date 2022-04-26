@@ -1,4 +1,4 @@
-// (c) 2021 SuperSonic (https://randychen.tk)
+// (c) 2022 SuperSonic (https://randychen.tk)
 
 const conversion_table_for_add = {
     blog: "#blog",
