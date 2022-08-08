@@ -36,7 +36,7 @@
                 i18n.translator.add(xhr);
                 textDOMs.each((_, dom) => {
                     const originalText = $(dom).text()
-                        .replace(/\n/g, "")
+                        .replace(/\n/g, " ")
                         .replace(/ +/g, " ")
                         .trim();
                     $(dom).text(i18n(originalText));
