@@ -1,0 +1,11 @@
+{
+  "name": "supersonictw",
+  "version": "0.0.1",
+  "description": "This is my page which to introduce me with my experiences and abilities.",
+  "dependencies": {
+    "serve": "^14.0.1"
+  },
+  "scripts": {
+    "start": "node_modules/.bin/serve public/"
+  }
+}
