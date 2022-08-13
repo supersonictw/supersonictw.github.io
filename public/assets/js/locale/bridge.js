@@ -15,9 +15,7 @@
             console.warn("No i18n package match.");
             return;
         }
-        Cookies.set("lang", langCode, {
-            expires: 3650,
-        });
+        localStorage.setItem("lang");
         document.location.href = "/";
     };
 
