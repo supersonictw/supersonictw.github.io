@@ -6,7 +6,7 @@
 
 (() => {
     loadLocale(
-        Cookies.get("lang")
+        localStorage.getItem("lang")
         || navigator.language
         || navigator.userLanguage
     );
