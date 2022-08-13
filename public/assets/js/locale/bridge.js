@@ -15,7 +15,7 @@
             console.warn("No i18n package match.");
             return;
         }
-        localStorage.setItem("lang");
+        localStorage.setItem("lang", langCode);
         document.location.href = "/";
     };
 
