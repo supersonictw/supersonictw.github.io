@@ -63,107 +63,21 @@
         <div class="content">
             <h2 class="content-head is-center">Gallery</h2>
             <p class="is-center">Here are my side projects.</p>
-            <div class="gallery-card-container">
-                <div class="gallery-card">
-                    <div class="gallery-card-header">
-                        <h2>XIA</h2>
+            <div x-data="{ projects: $store.projects }" class="gallery-card-container">
+                <template x-for="(project, i) in projects" x-bind:key="i">
+                    <div class="gallery-card">
+                        <div class="gallery-card-header">
+                            <h2 x-text="project.title"></h2>
+                        </div>
+                        <div class="gallery-card-content" x-text="project.description"></div>
+                        <div x-data="{ links: project.links }" class="gallery-card-actions">
+                            <template x-for="(link, j) in links" x-bind:key="j">
+                                <a class="pure-button" :class="j === 0 ? 'gallery-primary' : 'gallery-secondary'"
+                                    target="_blank" x-text="link.title" x-bind:href="link.href"></a>
+                            </template>
+                        </div>
                     </div>
-                    <div class="gallery-card-content">
-                        LINE Compatible Web Client
-                    </div>
-                    <div class="gallery-card-actions">
-                        <a class="pure-button gallery-primary" href="https://xia.randychen.tk" target="_blank">
-                            Go
-                        </a>
-                        <a class="pure-button gallery-secondary" href="https://github.com/supersonictw/xia"
-                            target="_blank">
-                            Source Code
-                        </a>
-                    </div>
-                </div>
-                <div class="gallery-card">
-                    <div class="gallery-card-header">
-                        <h2>LinuxOnBrowser</h2>
-                    </div>
-                    <div class="gallery-card-content">
-                        This is a virtual machine running GNU/Linux on browser with the forked v86.js.
-                    </div>
-                    <div class="gallery-card-actions">
-                        <a class="pure-button gallery-primary" href="https://randychen.tk/lob" target="_blank">
-                            Go
-                        </a>
-                        <a class="pure-button gallery-secondary" href="https://github.com/supersonictw/lob"
-                            target="_blank">
-                            Source Code
-                        </a>
-                    </div>
-                </div>
-                <div class="gallery-card">
-                    <div class="gallery-card-header">
-                        <h2>popcat-echo</h2>
-                    </div>
-                    <div class="gallery-card-content">
-                        The server-side reproduction, similar the one of https://popcat.click, improve the performance
-                        and speed.
-                    </div>
-                    <div class="gallery-card-actions">
-                        <a class="pure-button gallery-primary" href="https://popcat.randychen.tk" target="_blank">
-                            Go
-                        </a>
-                        <a class="pure-button gallery-secondary" href="https://github.com/supersonictw/popcat-echo"
-                            target="_blank">
-                            Source Code
-                        </a>
-                    </div>
-                </div>
-                <div class="gallery-card">
-                    <div class="gallery-card-header">
-                        <h2>line-bot-sdk-php-tiny</h2>
-                    </div>
-                    <div class="gallery-card-content">
-                        A simple SDK for the LINE Messaging API with PHP.
-                    </div>
-                    <div class="gallery-card-actions">
-                        <a class="pure-button gallery-primary"
-                            href="https://github.com/supersonictw/line-bot-sdk-php-tiny" target="_blank">
-                            Source Code
-                        </a>
-                    </div>
-                </div>
-                <div class="gallery-card">
-                    <div class="gallery-card-header">
-                        <h2>Karafa</h2>
-                    </div>
-                    <div class="gallery-card-content">
-                        Make browser as a notepad.
-                    </div>
-                    <div class="gallery-card-actions">
-                        <a class="pure-button gallery-primary" href="https://randychen.tk/karafa" target="_blank">
-                            Go
-                        </a>
-                        <a class="pure-button gallery-secondary" href="https://github.com/supersonictw/karafa"
-                            target="_blank">
-                            Source Code
-                        </a>
-                    </div>
-                </div>
-                <div class="gallery-card">
-                    <div class="gallery-card-header">
-                        <h2>東方闇魔伝</h2>
-                    </div>
-                    <div class="gallery-card-content">
-                        This is a TouHou like game, based on Vue.js without any animation library.
-                    </div>
-                    <div class="gallery-card-actions">
-                        <a class="pure-button gallery-primary" href="https://touhou.randychen.tk" target="_blank">
-                            Go
-                        </a>
-                        <a class="pure-button gallery-secondary" href="https://github.com/supersonictw/edu2021"
-                            target="_blank">
-                            Source Code
-                        </a>
-                    </div>
-                </div>
+                </template>
             </div>
         </div>
 
@@ -171,6 +85,96 @@
         <div class="footer l-box is-center">
             &copy;2022 <a href="https://github.com/supersonictw">SuperSonic</a>.
         </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.3/cdn.min.js"
+            integrity="sha512-P0Ms+SM3w8aSbPa5U/nFoprxlUzG2FSz9h/A+2xhhE1hcH6RmGYK3dImFCvcSYuioM3UbbAtMbAopAuHLr94pA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            document.addEventListener('alpine:init', () => {
+                Alpine.store('projects', [
+                    {
+                        title: "XIA",
+                        description: "LINE Compatible Web Client",
+                        links: [
+                            {
+                                title: "Go",
+                                href: "https://xia.randychen.tk",
+                            },
+                            {
+                                title: "Source Code",
+                                href: "https://github.com/supersonictw/xia"
+                            }
+                        ],
+                    },
+                    {
+                        title: "LinuxOnBrowser",
+                        description: "This is a virtual machine running GNU/Linux on browser with the forked v86.js.",
+                        links: [
+                            {
+                                title: "Go",
+                                href: "https://randychen.tk/lob",
+                            },
+                            {
+                                title: "Source Code",
+                                href: "https://github.com/supersonictw/lob"
+                            }
+                        ],
+                    },
+                    {
+                        title: "popcat-echo",
+                        description: "The server-side reproduction, similar the one of https://popcat.click, improve the performance and speed.",
+                        links: [
+                            {
+                                title: "Go",
+                                href: "https://popcat.randychen.tk",
+                            },
+                            {
+                                title: "Source Code",
+                                href: "https://github.com/supersonictw/popcat-echo"
+                            }
+                        ],
+                    },
+                    {
+                        title: "line-bot-sdk-php-tiny",
+                        description: "A simple SDK for the LINE Messaging API with PHP.",
+                        links: [
+                            {
+                                title: "Source Code",
+                                href: "https://github.com/supersonictw/line-bot-sdk-php-tiny"
+                            }
+                        ],
+                    },
+                    {
+                        title: "Karafa",
+                        description: "Make browser as a notepad.",
+                        links: [
+                            {
+                                title: "Go",
+                                href: "https://randychen.tk/karafa",
+                            },
+                            {
+                                title: "Source Code",
+                                href: "https://github.com/supersonictw/karafa"
+                            }
+                        ],
+                    },
+                    {
+                        title: "東方闇魔伝",
+                        description: "This is a TouHou like game, based on Vue.js without any animation library.",
+                        links: [
+                            {
+                                title: "Go",
+                                href: "https://touhou.randychen.tk",
+                            },
+                            {
+                                title: "Source Code",
+                                href: "https://github.com/supersonictw/edu2021"
+                            }
+                        ],
+                    },
+                ]);
+            });
+            Alpine.start();
+        </script>
         <script src="assets/js/locale/bridge.js?rev=__REV__"></script>
     </div>
 
