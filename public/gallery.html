@@ -92,91 +92,14 @@
             integrity="sha512-P0Ms+SM3w8aSbPa5U/nFoprxlUzG2FSz9h/A+2xhhE1hcH6RmGYK3dImFCvcSYuioM3UbbAtMbAopAuHLr94pA=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>
-            document.addEventListener('alpine:init', () => {
-                Alpine.store('projects', [
-                    {
-                        title: "XIA",
-                        description: "LINE Compatible Web Client",
-                        links: [
-                            {
-                                title: "Go",
-                                href: "https://xia.randychen.tk",
-                            },
-                            {
-                                title: "Source Code",
-                                href: "https://github.com/supersonictw/xia"
-                            }
-                        ],
-                    },
-                    {
-                        title: "LinuxOnBrowser",
-                        description: "This is a virtual machine running GNU/Linux on browser with the forked v86.js.",
-                        links: [
-                            {
-                                title: "Go",
-                                href: "https://randychen.tk/lob",
-                            },
-                            {
-                                title: "Source Code",
-                                href: "https://github.com/supersonictw/lob"
-                            }
-                        ],
-                    },
-                    {
-                        title: "popcat-echo",
-                        description: "The server-side reproduction, similar the one of https://popcat.click, improve the performance and speed.",
-                        links: [
-                            {
-                                title: "Go",
-                                href: "https://popcat.randychen.tk",
-                            },
-                            {
-                                title: "Source Code",
-                                href: "https://github.com/supersonictw/popcat-echo"
-                            }
-                        ],
-                    },
-                    {
-                        title: "line-bot-sdk-php-tiny",
-                        description: "A simple SDK for the LINE Messaging API with PHP.",
-                        links: [
-                            {
-                                title: "Source Code",
-                                href: "https://github.com/supersonictw/line-bot-sdk-php-tiny"
-                            }
-                        ],
-                    },
-                    {
-                        title: "Karafa",
-                        description: "Make browser as a notepad.",
-                        links: [
-                            {
-                                title: "Go",
-                                href: "https://randychen.tk/karafa",
-                            },
-                            {
-                                title: "Source Code",
-                                href: "https://github.com/supersonictw/karafa"
-                            }
-                        ],
-                    },
-                    {
-                        title: "東方闇魔伝",
-                        description: "This is a TouHou like game, based on Vue.js without any animation library.",
-                        links: [
-                            {
-                                title: "Go",
-                                href: "https://touhou.randychen.tk",
-                            },
-                            {
-                                title: "Source Code",
-                                href: "https://github.com/supersonictw/edu2021"
-                            }
-                        ],
-                    },
-                ]);
-            });
-            Alpine.start();
+            fetch('./assets/data/projects.json')
+                .then(response => response.json())
+                .then(data => {
+                    document.addEventListener('alpine:init', () => {
+                        Alpine.store('projects', data);
+                    });
+                    Alpine.start();
+                });
         </script>
         <script src="assets/js/locale/bridge.js?rev=__REV__"></script>
     </div>
