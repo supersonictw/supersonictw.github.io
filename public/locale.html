@@ -15,6 +15,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
     <link rel="stylesheet" href="assets/css/style.css?rev=__REV__" />
+    <style>
+        #locale-box {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -23,7 +28,10 @@
         <div class="content">
             <h2 class="content-head is-center">Switch Language</h2>
             <p class="is-center">Select the language you prefer.</p>
-            <div class="pure-g">
+            <noscript>
+                <p class="is-center">Please enable JavaScript to use this page.</p>
+            </noscript>
+            <div id="locale-box" class="pure-g">
                 <div class="l-box-lrg pure-u-1 is-center">
                     <a class="pure-button pure-button-primary" href="javascript:setLocale('zh-TW');">
                         正體中文(Traditional Chinese)
@@ -39,7 +47,15 @@
         <div class="footer l-box is-center">
             &copy;2022 <a href="https://github.com/supersonictw">SuperSonic</a>.
         </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+            integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="assets/js/locale/bridge.js?rev=__REV__"></script>
+        <script>
+            (() => {
+                $("#locale-box").fadeIn(1000);
+            })();
+        </script>
     </div>
 
 </body>

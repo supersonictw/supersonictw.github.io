@@ -63,6 +63,9 @@
         <div class="content">
             <h2 class="content-head is-center">Gallery</h2>
             <p class="is-center">Here are my side projects.</p>
+            <noscript>
+                <p class="is-center">Please enable JavaScript to view the gallery.</p>
+            </noscript>
             <div x-data="{ projects: $store.projects }" class="gallery-card-container">
                 <template x-for="(project, i) in projects" x-bind:key="i">
                     <div class="gallery-card">
