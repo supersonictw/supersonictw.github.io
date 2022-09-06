@@ -92,7 +92,7 @@
             integrity="sha512-P0Ms+SM3w8aSbPa5U/nFoprxlUzG2FSz9h/A+2xhhE1hcH6RmGYK3dImFCvcSYuioM3UbbAtMbAopAuHLr94pA=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>
-            fetch('./assets/data/projects.json')
+            fetch('./assets/data/projects.json?rev=__REV__')
                 .then(response => response.json())
                 .then(data => {
                     document.addEventListener('alpine:init', () => {
@@ -101,7 +101,6 @@
                     Alpine.start();
                 });
         </script>
-        <script src="assets/js/locale/bridge.js?rev=__REV__"></script>
     </div>
 
 </body>
