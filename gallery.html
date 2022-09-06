@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.1/grids-responsive-min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
-    <link rel="stylesheet" href="assets/css/style.css?rev=1662475054" />
+    <link rel="stylesheet" href="assets/css/style.css?rev=1662475653" />
     <style>
         /**
          * -- Gallery STYLES --
@@ -63,6 +63,9 @@
         <div class="content">
             <h2 class="content-head is-center">Gallery</h2>
             <p class="is-center">Here are my side projects.</p>
+            <noscript>
+                <p class="is-center">Please enable JavaScript to view the gallery.</p>
+            </noscript>
             <div x-data="{ projects: $store.projects }" class="gallery-card-container">
                 <template x-for="(project, i) in projects" x-bind:key="i">
                     <div class="gallery-card">
@@ -175,7 +178,7 @@
             });
             Alpine.start();
         </script>
-        <script src="assets/js/locale/bridge.js?rev=1662475054"></script>
+        <script src="assets/js/locale/bridge.js?rev=1662475653"></script>
     </div>
 
 </body>
