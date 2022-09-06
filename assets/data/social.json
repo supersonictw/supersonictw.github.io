@@ -1,0 +1,77 @@
+[
+  {
+    "title": "Blog",
+    "href": "https://blog.randychen.tk",
+    "slug": "blog"
+  },
+  {
+    "title": "Nex",
+    "href": "https://nex.starinc.xyz/u/1",
+    "slug": "nex"
+  },
+  {
+    "title": "GitHub",
+    "href": "https://github.com/supersonictw",
+    "slug": "github"
+  },
+  {
+    "title": "GitLab",
+    "href": "https://gitlab.com/supersonictw",
+    "slug": "gitlab"
+  },
+  {
+    "title": "Medium",
+    "href": "https://medium.com/@supersonictw",
+    "slug": "medium"
+  },
+  {
+    "title": "APK.TW",
+    "href": "https://apk.tw/space-uid-1068359.html",
+    "slug": "apktw"
+  },
+  {
+    "title": "Leetcode",
+    "href": "https://leetcode.com/supersonictw",
+    "slug": "leetcode"
+  },
+  {
+    "title": "Stackoverflow",
+    "href": "https://stackoverflow.com/users/8258897/supersonic",
+    "slug": "stackoverflow"
+  },
+  {
+    "title": "MDN",
+    "href": "https://developer.mozilla.org/profiles/supersonictw",
+    "slug": "mdn"
+  },
+  {
+    "title": "MSDN",
+    "href": "https://social.msdn.microsoft.com/Profile/supersonictw",
+    "slug": "msdn"
+  },
+  {
+    "title": "Microsoft Docs",
+    "href": "https://docs.microsoft.com/users/supersonictw/",
+    "slug": "ms_docs"
+  },
+  {
+    "title": "Facebook",
+    "href": "https://facebook.com/startw333",
+    "slug": "facebook"
+  },
+  {
+    "title": "Instagram",
+    "href": "https://instagram.com/supersonictw",
+    "slug": "instagram"
+  },
+  {
+    "title": "Twitter",
+    "href": "https://twitter.com/yuuki_yusaku",
+    "slug": "twitter"
+  },
+  {
+    "title": "LinkedIn",
+    "href": "https://www.linkedin.com/in/supersonictw",
+    "slug": "linkedin"
+  }
+]

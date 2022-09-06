@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.1/grids-responsive-min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
-    <link rel="stylesheet" href="assets/css/style.css?rev=1662476355" />
+    <link rel="stylesheet" href="assets/css/style.css?rev=1662478143" />
     <style>
         /**
          * -- Gallery STYLES --
@@ -91,16 +91,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.3/cdn.min.js"
             integrity="sha512-P0Ms+SM3w8aSbPa5U/nFoprxlUzG2FSz9h/A+2xhhE1hcH6RmGYK3dImFCvcSYuioM3UbbAtMbAopAuHLr94pA=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script>
-            fetch('./assets/data/projects.json?rev=1662476355')
-                .then(response => response.json())
-                .then(data => {
-                    document.addEventListener('alpine:init', () => {
-                        Alpine.store('projects', data);
-                    });
-                    Alpine.start();
-                });
-        </script>
+        <script src="assets/js/projects.js"></script>
     </div>
 
 </body>
