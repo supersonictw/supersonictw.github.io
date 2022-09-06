@@ -91,16 +91,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.3/cdn.min.js"
             integrity="sha512-P0Ms+SM3w8aSbPa5U/nFoprxlUzG2FSz9h/A+2xhhE1hcH6RmGYK3dImFCvcSYuioM3UbbAtMbAopAuHLr94pA=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script>
-            fetch('./assets/data/projects.json?rev=__REV__')
-                .then(response => response.json())
-                .then(data => {
-                    document.addEventListener('alpine:init', () => {
-                        Alpine.store('projects', data);
-                    });
-                    Alpine.start();
-                });
-        </script>
+        <script src="assets/js/projects.js"></script>
     </div>
 
 </body>

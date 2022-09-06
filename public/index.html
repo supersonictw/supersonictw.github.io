@@ -115,36 +115,18 @@
         <div class="content">
             <h2 class="content-head is-center i18n">Keep in touch</h2>
             <p class="is-center i18n">Welcome to follow or contact me with your SNS account.</p>
+            <noscript>
+                <div class="is-center">
+                    <i class="fa fa-exclamation-triangle"></i>
+                    <span class="i18n">Please enable JavaScript to view the links</span>
+                </div>
+            </noscript>
             <div class="pure-g">
-                <div class="l-box-lrg pure-u-1 is-center">
-                    <a id="blog" class="pure-button pure-button-primary" href="https://blog.randychen.tk">Blog</a>
-                    <a id="nex" class="pure-button pure-button-primary" href="https://nex.starinc.xyz/u/1">Nex</a>
-                    <a id="github" class="pure-button pure-button-primary"
-                        href="https://github.com/supersonictw">GitHub</a>
-                    <a id="gitlab" class="pure-button pure-button-primary"
-                        href="https://gitlab.com/supersonictw">GitLab</a>
-                    <a id="medium" class="pure-button pure-button-primary"
-                        href="https://medium.com/@supersonictw">Medium</a>
-                    <a id="apktw" class="pure-button pure-button-primary"
-                        href="https://apk.tw/space-uid-1068359.html">APK.TW</a>
-                    <a id="leetcode" class="pure-button pure-button-primary"
-                        href="https://leetcode.com/supersonictw">Leetcode</a>
-                    <a id="stackoverflow" class="pure-button pure-button-primary"
-                        href="https://stackoverflow.com/users/8258897/supersonic">Stackoverflow</a>
-                    <a id="mdn" class="pure-button pure-button-primary"
-                        href="https://developer.mozilla.org/profiles/supersonictw">MDN</a>
-                    <a id="msdn" class="pure-button pure-button-primary"
-                        href="https://social.msdn.microsoft.com/Profile/supersonictw">MSDN</a>
-                    <a id="ms_docs" class="pure-button pure-button-primary"
-                        href="https://docs.microsoft.com/users/supersonictw/">Microsoft Docs</a>
-                    <a id="facebook" class="pure-button pure-button-primary"
-                        href="https://facebook.com/startw333">Facebook</a>
-                    <a id="instagram" class="pure-button pure-button-primary"
-                        href="https://instagram.com/supersonictw">Instagram</a>
-                    <a id="twitter" class="pure-button pure-button-primary"
-                        href="https://twitter.com/yuuki_yusaku">Twitter</a>
-                    <a id="linkedin" class="pure-button pure-button-primary"
-                        href="https://www.linkedin.com/in/supersonictw">LinkedIn</a>
+                <div x-data="{ links: $store.socialLinks }" class="l-box-lrg pure-u-1 is-center">
+                    <template x-for="(link, i) in links" x-bind:key="i">
+                        <a x-bind:id="link.slug" class="pure-button pure-button-primary" x-bind:href="link.href"
+                            x-text="link.title"></a>
+                    </template>
                 </div>
             </div>
         </div>
@@ -157,10 +139,14 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
             integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.3/cdn.min.js"
+            integrity="sha512-P0Ms+SM3w8aSbPa5U/nFoprxlUzG2FSz9h/A+2xhhE1hcH6RmGYK3dImFCvcSYuioM3UbbAtMbAopAuHLr94pA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="assets/js/locale/i18n.min.js?rev=__REV__"></script>
         <script src="assets/js/locale/bridge.js?rev=__REV__"></script>
         <script src="assets/js/locale/loader.js?rev=__REV__"></script>
         <script src="assets/js/redirect.js?rev=__REV__"></script>
+        <script src="assets/js/social.js?rev=__REV__"></script>
     </div>
 </body>
 
