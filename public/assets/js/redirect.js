@@ -22,10 +22,5 @@
         if (!target) return false;
         redirectWorker("social", target);
         return true;
-    })() || (() => {
-        const target = getUrlParameter("cv");
-        if (!target) return false;
-        redirectWorker("cv", target);
-        return true;
     })();
 })();
