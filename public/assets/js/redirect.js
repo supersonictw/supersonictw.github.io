@@ -1,5 +1,5 @@
 // Auto Redirect
-// (c) 2022 SuperSonic (https://randychen.tk)
+// (c) 2023 SuperSonic (https://randychen.tk)
 
 (() => {
     const getUrlParameter = (index) => {
