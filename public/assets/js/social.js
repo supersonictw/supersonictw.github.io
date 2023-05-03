@@ -1,5 +1,5 @@
 (() => {
-    fetch('./assets/data/social.json?rev=__REV__')
+    fetch('./assets/data/social.json')
         .then(response => response.json())
         .then(data => {
             document.addEventListener('alpine:init', () => {

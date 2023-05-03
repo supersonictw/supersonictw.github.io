@@ -1,5 +1,5 @@
 (() => {
-    fetch('./assets/data/projects.json?rev=__REV__')
+    fetch('./assets/data/projects.json')
         .then(response => response.json())
         .then(data => {
             document.addEventListener('alpine:init', () => {
