@@ -3,7 +3,7 @@
     "title": "XIA",
     "description": "LINE Compatible Web Client",
     "links": [
-      { "title": "Go", "href": "https://xia.randychen.tk" },
+      { "title": "Go", "href": "https://shiranui.xyz/xia-demo" },
       { "title": "Source Code", "href": "https://github.com/supersonictw/xia" }
     ]
   },
@@ -11,15 +11,15 @@
     "title": "LinuxOnBrowser",
     "description": "This is a virtual machine running GNU/Linux on browser with the forked v86.js.",
     "links": [
-      { "title": "Go", "href": "https://randychen.tk/lob" },
+      { "title": "Go", "href": "https://shiranui.xyz/lob" },
       { "title": "Source Code", "href": "https://github.com/supersonictw/lob" }
     ]
   },
   {
-    "title": "popcat-echo",
+    "title": "popsenzawa/popcat-echo",
     "description": "The server-side reproduction, similar the one of https://popcat.click, improve the performance and speed.",
     "links": [
-      { "title": "Go", "href": "https://popcat.randychen.tk" },
+      { "title": "Go", "href": "https://shiranui.xyz/popsenzawa" },
       {
         "title": "Source Code",
         "href": "https://github.com/supersonictw/popcat-echo"
@@ -40,7 +40,7 @@
     "title": "Karafa",
     "description": "Make browser as a notepad.",
     "links": [
-      { "title": "Go", "href": "https://randychen.tk/karafa" },
+      { "title": "Go", "href": "https://shiranui.xyz/karafa" },
       {
         "title": "Source Code",
         "href": "https://github.com/supersonictw/karafa"
@@ -51,7 +51,7 @@
     "title": "東方闇魔伝",
     "description": "This is a TouHou like game, based on Vue.js without any animation library.",
     "links": [
-      { "title": "Go", "href": "https://touhou.randychen.tk" },
+      { "title": "Go", "href": "https://shiranui.xyz/edu2021" },
       {
         "title": "Source Code",
         "href": "https://github.com/supersonictw/edu2021"
