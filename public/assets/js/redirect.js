@@ -1,5 +1,5 @@
 // Auto Redirect
-// (c) 2023 SuperSonic (https://randychen.tk)
+// (c) 2024 SuperSonic (https://shiranui.xyz)
 
 (() => {
     const getUrlParameter = (index) => {
