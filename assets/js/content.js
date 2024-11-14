@@ -11,12 +11,14 @@
     context.set("year", year);
 
     switch (pathname) {
-        case '/': {
+        case '/':
+        case '/index.html': {
             const social = await dataFetch("social");
             context.set("socialLinks", social);
             break;
         }
-        case '/gallery': {
+        case '/gallery':
+        case '/gallery.html': {
             const projects = await dataFetch("projects");
             context.set("projects", projects);
             break;
