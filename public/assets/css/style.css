@@ -1258,14 +1258,14 @@ a.pure-button-primary:hover::before,
     }
 
     .home-menu__nav {
-        display: none;
+        display: flex;
         position: absolute;
         top: 100%;
         left: 0;
         right: 0;
         width: 100%;
         box-sizing: border-box;
-        background-color: rgba(255, 255, 255, 0.96);
+        background-color: rgba(255, 255, 255, 0.98);
         background-image:
             var(--prism-gradient),
             radial-gradient(circle at 15% 20%, rgba(92, 225, 230, 0.12) 0%, transparent 45%),
@@ -1274,8 +1274,6 @@ a.pure-button-primary:hover::before,
         background-repeat: no-repeat;
         background-position: bottom center, center, center, center;
         background-size: 100% 2.5px, 100% 100%, 100% 100%, 100% 100%;
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
         border: none;
         box-shadow:
             0 20px 44px rgba(30, 27, 36, 0.09),
@@ -1285,6 +1283,14 @@ a.pure-button-primary:hover::before,
         align-items: center;
         gap: 0;
         z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-8px);
+        transition:
+            opacity 0.24s ease,
+            transform 0.24s cubic-bezier(0.22, 1, 0.36, 1),
+            visibility 0.24s ease;
     }
 
     .home-menu__nav::after {
@@ -1302,8 +1308,10 @@ a.pure-button-primary:hover::before,
     }
 
     .home-menu__nav.is-open {
-        display: flex;
-        animation: stageCurtainMenuReveal 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
     }
 
     .home-menu__link {
@@ -1324,17 +1332,8 @@ a.pure-button-primary:hover::before,
         letter-spacing: 0.1em;
         text-align: center;
         position: relative;
-        opacity: 0;
-        animation: stageLinkRise 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        opacity: 1;
         transition: color 0.25s ease, transform 0.25s ease;
-    }
-
-    .home-menu__link:nth-child(1) {
-        animation-delay: 0.04s;
-    }
-
-    .home-menu__link:nth-child(2) {
-        animation-delay: 0.09s;
     }
 
     .home-menu__link::before {
@@ -1358,28 +1357,6 @@ a.pure-button-primary:hover::before,
     .home-menu__link:hover::before,
     .home-menu__link:active::before {
         transform: rotate(45deg) scale(1.15);
-    }
-
-    @keyframes stageCurtainMenuReveal {
-        from {
-            opacity: 0;
-            transform: translateY(-6px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes stageLinkRise {
-        from {
-            opacity: 0;
-            transform: translateY(8px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
     }
 
     .splash-container {
