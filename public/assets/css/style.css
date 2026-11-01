@@ -766,7 +766,7 @@ a.pure-button-primary:hover::before,
 
 .splash {
     width: 88%;
-    max-width: 760px;
+    max-width: 860px;
     margin: auto;
     position: relative;
     z-index: 2;
@@ -808,14 +808,14 @@ a.pure-button-primary:hover::before,
     line-height: 1.55;
     letter-spacing: 0.08em;
     position: relative;
-    min-height: 4.8em;
+    min-height: 2.8em;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .typing-target {
-    white-space: pre-line;
+    white-space: nowrap;
     display: inline-block;
     text-align: center;
 }
@@ -1389,11 +1389,12 @@ a.pure-button-primary:hover::before,
     }
 
     .splash-head {
-        font-size: 1.25rem;
+        font-size: clamp(0.86rem, 3.8vw, 1.25rem);
         line-height: 1.5;
-        min-height: 3.8em;
-        padding: 0.65em 0.8em;
+        min-height: 2.8em;
+        padding: 0.7em 0.4em;
         margin-bottom: 0.7em;
+        letter-spacing: 0.04em;
     }
 
     .splash-subhead {
@@ -1454,7 +1455,7 @@ a.pure-button-primary:hover::before,
     }
 
     .splash-head {
-        font-size: 210%;
+        font-size: clamp(1.35rem, 2.5vw, 2.05rem);
     }
 
     .l-box-lrg {
@@ -1468,7 +1469,7 @@ a.pure-button-primary:hover::before,
     }
 
     .splash-head {
-        font-size: 250%;
+        font-size: 2.25rem;
     }
 }
 
