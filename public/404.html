@@ -89,6 +89,19 @@
                     <span class="menu-brand-subtitle">Shiranui</span>
                 </span>
             </a>
+            <button class="menu-toggle" type="button" aria-label="Menu"
+                x-on:click="$store.menu.toggle()"
+                x-bind:class="{ 'is-active': $store.menu.isOpen }">
+                <span class="menu-toggle__line"></span>
+                <span class="menu-toggle__line"></span>
+                <span class="menu-toggle__line"></span>
+            </button>
+            <div class="home-menu__nav" x-bind:class="{ 'is-open': $store.menu.isOpen }">
+                <a class="home-menu__link i18n" href="/"
+                    x-on:click="$store.menu.close(); $store.stage.navigate($event, '/')">Return</a>
+                <a class="home-menu__link i18n" href="/locale.html"
+                    x-on:click="$store.menu.close(); $store.stage.navigate($event, '/locale.html')">Language (English)</a>
+            </div>
         </div>
     </div>
 
