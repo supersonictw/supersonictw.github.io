@@ -14,69 +14,123 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.1/grids-responsive-min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
-    <link rel="stylesheet" href="assets/css/style.css?rev=1740509257" />
-    <style>
-        /**
-         * -- Gallery STYLES --
-         */
-        .gallery-card-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 30px;
-            margin-bottom: 50px;
-        }
-
-        .gallery-card {
-            text-align: center;
-            margin: 50px;
-            width: 30%;
-        }
-
-        .gallery-card-actions {
-            margin-top: 25px;
-        }
-
-        .gallery-card a.pure-button.gallery-primary {
-            background-color: #cc5f5a;
-            color: white;
-        }
-
-        .gallery-card a.pure-button.gallery-secondary {
-            background: white;
-            color: #cc5f5a;
-        }
-
-        @media screen and (max-width: 768px) {
-            .gallery-card {
-                margin-left: 15px;
-                margin-right: 15px;
-                width: 45%;
+    <link rel="stylesheet" href="assets/css/style.css?rev=1793522165" />
+    <noscript>
+        <style>
+            .stage-curtain {
+                display: none !important;
             }
-        }
-    </style>
+        </style>
+    </noscript>
 </head>
 
-<body>
+<body x-data>
+    <div class="stage-curtain"
+        x-bind:class="{ 'is-open': $store.stage && $store.stage.phase === 'open', 'is-closing': $store.stage && $store.stage.phase === 'closing' }"
+        aria-hidden="true">
+        <div class="stage-curtain__panel stage-curtain__panel--left"></div>
+        <div class="stage-curtain__panel stage-curtain__panel--right"></div>
+        <div class="stage-curtain__center">
+            <img src="assets/images/wing.png" alt="" width="171" height="150" style="display: none;" />
+            <svg class="wing-stage-emblem" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 171 150" fill="none">
+                <polygon class="wing-branch-poly" points="8,61 64,14 164,114 103,57 64,21 12,66" fill="#231F28" />
+                <g class="wing-crystal wing-crystal--1">
+                    <line x1="22.5" y1="53" x2="22.5" y2="61" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="22.5,60 29,76 22.5,92 16,76" fill="#5CE1E6" />
+                    <polygon class="crystal-highlight" points="22.5,60 29,76 22.5,76" fill="#95EBEF" />
+                </g>
+                <g class="wing-crystal wing-crystal--2">
+                    <line x1="38.5" y1="39" x2="38.5" y2="47" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="38.5,46 45,62 38.5,78 32,62" fill="#3876F2" />
+                    <polygon class="crystal-highlight" points="38.5,46 45,62 38.5,62" fill="#7EA6F7" />
+                </g>
+                <g class="wing-crystal wing-crystal--3">
+                    <line x1="54.5" y1="26" x2="54.5" y2="35" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="54.5,34 61,50 54.5,66 48,50" fill="#8C52FF" />
+                    <polygon class="crystal-highlight" points="54.5,34 61,50 54.5,50" fill="#B58CFF" />
+                </g>
+                <g class="wing-crystal wing-crystal--4">
+                    <line x1="71.5" y1="26" x2="71.5" y2="36" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="71.5,35 78,50.5 71.5,66 65,50.5" fill="#FF66C4" />
+                    <polygon class="crystal-highlight" points="71.5,35 78,50.5 71.5,50.5" fill="#FF9CD9" />
+                </g>
+                <g class="wing-crystal wing-crystal--5">
+                    <line x1="87.5" y1="41" x2="87.5" y2="52" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="87.5,51 94,66.5 87.5,82 81,66.5" fill="#FF914D" />
+                    <polygon class="crystal-highlight" points="87.5,51 94,66.5 87.5,66.5" fill="#FFB78B" />
+                </g>
+                <g class="wing-crystal wing-crystal--6">
+                    <line x1="103.5" y1="57" x2="103.5" y2="68" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="103.5,67 110,82.5 103.5,98 97,82.5" fill="#FFDE59" />
+                    <polygon class="crystal-highlight" points="103.5,67 110,82.5 103.5,82.5" fill="#FFEA93" />
+                </g>
+                <g class="wing-crystal wing-crystal--7">
+                    <line x1="119.5" y1="74" x2="119.5" y2="84" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="119.5,83 126,98.5 119.5,114 113,98.5" fill="#7ED957" />
+                    <polygon class="crystal-highlight" points="119.5,83 126,98.5 119.5,98.5" fill="#ABE692" />
+                </g>
+                <g class="wing-crystal wing-crystal--8">
+                    <line x1="135.5" y1="90" x2="135.5" y2="100" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="135.5,99 142,114.5 135.5,130 129,114.5" fill="#5CE1E6" />
+                    <polygon class="crystal-highlight" points="135.5,99 142,114.5 135.5,114.5" fill="#95EBEF" />
+                </g>
+            </svg>
+            <div class="stage-curtain__caption">旋律は朱の虹となり</div>
+        </div>
+    </div>
+
+    <div class="stage-rail stage-rail--left" aria-hidden="true">
+        <div class="stage-rail__line"></div>
+        <div class="stage-rail__text">旋律は朱の虹となり</div>
+        <div class="stage-rail__line"></div>
+    </div>
+    <div class="stage-rail stage-rail--right" aria-hidden="true">
+        <div class="stage-rail__line"></div>
+        <div class="stage-rail__prisms">
+            <template x-for="(color, idx) in ($store.prisms || [])" x-bind:key="idx">
+                <span class="stage-rail__gem" x-bind:style="{ backgroundColor: color }"></span>
+            </template>
+        </div>
+        <div class="stage-rail__line"></div>
+    </div>
+
     <!-- Main -->
+    <div class="header">
+        <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+            <a class="pure-menu-heading" href="/" x-on:click="$store.stage.navigate($event, '/')">
+                <img class="menu-avatar" src="assets/images/avatar.jpg" alt="不知火 Shiranui" />
+                <span class="menu-brand-text">
+                    <span class="menu-brand-title">不知火</span>
+                    <span class="menu-brand-subtitle">Shiranui</span>
+                </span>
+            </a>
+            <div class="home-menu__nav">
+                <a class="home-menu__link i18n" href="/" x-on:click="$store.stage.navigate($event, '/')">Return</a>
+                <a class="home-menu__link i18n" href="/locale.html"
+                    x-on:click="$store.stage.navigate($event, '/locale.html')">Language (English)</a>
+            </div>
+        </div>
+    </div>
+
     <div class="splash-wrapper">
         <div class="content">
-            <h2 class="content-head is-center">Gallery</h2>
-            <p class="is-center">Here are my side projects.</p>
+            <h2 class="content-head is-center i18n">Gallery</h2>
+            <p class="is-center i18n">Here are my side projects.</p>
             <noscript>
-                <p class="is-center">Please enable JavaScript to view the gallery.</p>
+                <p class="is-center i18n">Please enable JavaScript to view the gallery.</p>
             </noscript>
-            <div x-data="{ projects: $store.projects }" class="gallery-card-container">
-                <template x-for="(project, i) in projects" x-bind:key="i">
+            <div class="gallery-card-container">
+                <template x-for="(project, i) in ($store.projects || [])" x-bind:key="i">
                     <div class="gallery-card">
                         <div class="gallery-card-header">
                             <h2 x-text="project.title"></h2>
                         </div>
                         <div class="gallery-card-content" x-text="project.description"></div>
-                        <div x-data="{ links: project.links }" class="gallery-card-actions">
-                            <template x-for="(link, j) in links" x-bind:key="j">
-                                <a class="pure-button" :class="j === 0 ? 'gallery-primary' : 'gallery-secondary'"
-                                    target="_blank" x-text="link.title" x-bind:href="link.href"></a>
+                        <div class="gallery-card-actions">
+                            <template x-for="(link, j) in (project.links || [])" x-bind:key="j">
+                                <a class="pure-button" x-bind:class="j === 0 ? 'gallery-primary' : 'gallery-secondary'"
+                                    target="_blank" rel="noopener noreferrer" x-text="link.title"
+                                    x-bind:href="link.href"></a>
                             </template>
                         </div>
                     </div>
@@ -85,13 +139,19 @@
         </div>
 
         <!-- Footer -->
-        <div class="footer l-box is-center" x-data="{ year: $store.year }">
+        <div class="footer l-box is-center">
             &copy;
-            <span x-text="year"></span>
-            <a href="https://shiranui.xyz">Shiranui</a>.
+            <span x-text="$store.year"></span>
+            <a href="https://shiranui.xyz">Shiranui</a>. |
+            <a class="i18n" href="/locale.html" x-on:click="$store.stage.navigate($event, '/locale.html')">Language
+                (English)</a>
         </div>
-        <script src="assets/js/render/alpine.min.js?rev=1740509257"></script>
-        <script src="assets/js/content.js?rev=1740509257"></script>
+        <script src="assets/js/render/jquery.min.js?rev=1793522165"></script>
+        <script src="assets/js/content.js?rev=1793522165"></script>
+        <script src="assets/js/render/alpine.min.js?rev=1793522165"></script>
+        <script src="assets/js/render/i18n.min.js?rev=1793522165"></script>
+        <script src="assets/js/locale/bridge.js?rev=1793522165"></script>
+        <script src="assets/js/locale/loader.js?rev=1793522165"></script>
     </div>
 
 </body>
