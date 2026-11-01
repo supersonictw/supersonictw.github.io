@@ -15,24 +15,115 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
     <link rel="stylesheet" href="assets/css/style.css?rev=__REV__" />
+    <noscript>
+        <style>
+            .stage-curtain {
+                display: none !important;
+            }
+        </style>
+    </noscript>
 </head>
 
-<body>
+<body x-data>
+    <div class="stage-curtain"
+        x-bind:class="{ 'is-open': $store.stage && $store.stage.phase === 'open', 'is-closing': $store.stage && $store.stage.phase === 'closing' }"
+        aria-hidden="true">
+        <div class="stage-curtain__panel stage-curtain__panel--left"></div>
+        <div class="stage-curtain__panel stage-curtain__panel--right"></div>
+        <div class="stage-curtain__center">
+            <img src="assets/images/wing.png" alt="" width="171" height="150" style="display: none;" />
+            <svg class="wing-stage-emblem" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 171 150" fill="none">
+                <polygon class="wing-branch-poly" points="8,61 64,14 164,114 103,57 64,21 12,66" fill="#231F28" />
+                <g class="wing-crystal wing-crystal--1">
+                    <line x1="22.5" y1="53" x2="22.5" y2="61" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="22.5,60 29,76 22.5,92 16,76" fill="#5CE1E6" />
+                    <polygon class="crystal-highlight" points="22.5,60 29,76 22.5,76" fill="#95EBEF" />
+                </g>
+                <g class="wing-crystal wing-crystal--2">
+                    <line x1="38.5" y1="39" x2="38.5" y2="47" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="38.5,46 45,62 38.5,78 32,62" fill="#3876F2" />
+                    <polygon class="crystal-highlight" points="38.5,46 45,62 38.5,62" fill="#7EA6F7" />
+                </g>
+                <g class="wing-crystal wing-crystal--3">
+                    <line x1="54.5" y1="26" x2="54.5" y2="35" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="54.5,34 61,50 54.5,66 48,50" fill="#8C52FF" />
+                    <polygon class="crystal-highlight" points="54.5,34 61,50 54.5,50" fill="#B58CFF" />
+                </g>
+                <g class="wing-crystal wing-crystal--4">
+                    <line x1="71.5" y1="26" x2="71.5" y2="36" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="71.5,35 78,50.5 71.5,66 65,50.5" fill="#FF66C4" />
+                    <polygon class="crystal-highlight" points="71.5,35 78,50.5 71.5,50.5" fill="#FF9CD9" />
+                </g>
+                <g class="wing-crystal wing-crystal--5">
+                    <line x1="87.5" y1="41" x2="87.5" y2="52" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="87.5,51 94,66.5 87.5,82 81,66.5" fill="#FF914D" />
+                    <polygon class="crystal-highlight" points="87.5,51 94,66.5 87.5,66.5" fill="#FFB78B" />
+                </g>
+                <g class="wing-crystal wing-crystal--6">
+                    <line x1="103.5" y1="57" x2="103.5" y2="68" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="103.5,67 110,82.5 103.5,98 97,82.5" fill="#FFDE59" />
+                    <polygon class="crystal-highlight" points="103.5,67 110,82.5 103.5,82.5" fill="#FFEA93" />
+                </g>
+                <g class="wing-crystal wing-crystal--7">
+                    <line x1="119.5" y1="74" x2="119.5" y2="84" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="119.5,83 126,98.5 119.5,114 113,98.5" fill="#7ED957" />
+                    <polygon class="crystal-highlight" points="119.5,83 126,98.5 119.5,98.5" fill="#ABE692" />
+                </g>
+                <g class="wing-crystal wing-crystal--8">
+                    <line x1="135.5" y1="90" x2="135.5" y2="100" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="135.5,99 142,114.5 135.5,130 129,114.5" fill="#5CE1E6" />
+                    <polygon class="crystal-highlight" points="135.5,99 142,114.5 135.5,114.5" fill="#95EBEF" />
+                </g>
+            </svg>
+            <div class="stage-curtain__caption">綺麗な舞台の出来上がり 私独り其処で踊る</div>
+        </div>
+    </div>
+
+    <div class="stage-rail stage-rail--left" aria-hidden="true">
+        <div class="stage-rail__line"></div>
+        <div class="stage-rail__text">私独り其処で踊る</div>
+        <div class="stage-rail__line"></div>
+    </div>
+    <div class="stage-rail stage-rail--right" aria-hidden="true">
+        <div class="stage-rail__line"></div>
+        <div class="stage-rail__prisms">
+            <template x-for="(color, idx) in ($store.prisms || [])" x-bind:key="idx">
+                <span class="stage-rail__gem" x-bind:style="{ backgroundColor: color }"></span>
+            </template>
+        </div>
+        <div class="stage-rail__line"></div>
+    </div>
+
     <!-- Main -->
     <div class="header">
         <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-            <a class="pure-menu-heading i18n" href="">Shiranui</a>
+            <a class="pure-menu-heading" href="/" x-on:click="$store.stage.navigate($event, '/')">
+                <img class="menu-avatar" src="assets/images/avatar.jpg" alt="不知火 Shiranui" />
+                <span class="menu-brand-text">
+                    <span class="menu-brand-title">不知火</span>
+                    <span class="menu-brand-subtitle">Shiranui</span>
+                </span>
+            </a>
+            <div class="home-menu__nav">
+                <a class="home-menu__link i18n" href="gallery.html"
+                    x-on:click="$store.stage.navigate($event, 'gallery.html')">Gallery</a>
+                <a class="home-menu__link i18n" href="/locale.html"
+                    x-on:click="$store.stage.navigate($event, '/locale.html')">Language (English)</a>
+            </div>
         </div>
     </div>
 
     <div class="splash-container">
         <div class="splash">
-            <h1 class="splash-head"><span class="animated fadeInDown i18n">The Composer of Internet</span></h1>
+            <h1 class="splash-head">
+                <span class="i18n typing-target" data-typing="true" data-i18n-key="The Composer of Internet">The Composer of Internet</span>
+            </h1>
             <p class="splash-subhead animated fadeInLeft delay-1s i18n">
                 The one who is working on the romantic opensource community.
             </p>
             <p>
-                <a href="gallery.html" class="pure-button pure-button-primary animated fadeInDown delay-2s i18n">
+                <a href="gallery.html" x-on:click="$store.stage.navigate($event, 'gallery.html')"
+                    class="pure-button pure-button-primary animated fadeInDown delay-2s i18n">
                     Gallery
                 </a>
             </p>
@@ -42,17 +133,19 @@
     <div class="content-wrapper">
         <div class="ribbon l-box-lrg pure-g">
             <div class="l-box-lrg is-center pure-u-1 pure-u-md-1-2 pure-u-lg-2-5">
-                <img width="300" alt="Avatar" class="pure-img-responsive" src="assets/images/avatar.jpg">
+                <div class="avatar-stage-frame">
+                    <img width="300" alt="Avatar" class="pure-img-responsive" src="assets/images/avatar.jpg" />
+                </div>
             </div>
             <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-3-5">
                 <h2 class="content-head content-head-ribbon">不知火 Shiranui</h2>
                 <span class="animated fadeInDown i18n">(aka. SuperSonic, SuperSonicTW, 矽, 彼岸花, 幻狐, 天神)</span>
                 <p>
-                    <span class="animated fadeInDown delay-2s i18n">A Full-Stack Engineer.</span><br>
+                    <span class="animated fadeInDown delay-2s i18n">A Full-Stack Engineer.</span><br />
                     <span class="animated fadeInDown delay-3s i18n">10 years coding experience with PHP
-                        Language.</span><br>
+                        Language.</span><br />
                     <span class="animated fadeInDown delay-4s i18n">With more than 25 kinds of programming language
-                        abilities.</span><br>
+                        abilities.</span><br />
                     <span class="animated fadeInDown delay-5s i18n">Focus on Data Security Analytics, Machine Learning
                         and Computer Sciences.</span>
                 </p>
@@ -63,50 +156,57 @@
             <h2 class="content-head is-center i18n">My talents</h2>
             <div class="pure-g">
                 <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
-
-                    <h3 class="content-subhead">
-                        <i class="fa fa-rocket"></i>
-                        <span class="i18n">Online Service</span>
-                    </h3>
-                    <p>
-                        <span class="i18n">Using GoLang, PHP, and more to create online services.</span><br>
-                        <span class="i18n">Skilled in jQuery, Vue.js... for designing front-side.</span><br>
-                        <span class="i18n">Selected MariaDB as primary database skill.</span><br>
-                    </p>
+                    <div class="talent-pillar">
+                        <h3 class="content-subhead">
+                            <i class="fa fa-rocket"></i>
+                            <span class="i18n">Online Service</span>
+                        </h3>
+                        <p>
+                            <span class="i18n">Using GoLang, PHP, and more to create online services.</span><br />
+                            <span class="i18n">Skilled in jQuery, Vue.js... for designing front-side.</span><br />
+                            <span class="i18n">Selected MariaDB as primary database skill.</span><br />
+                        </p>
+                    </div>
                 </div>
                 <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
-                    <h3 class="content-subhead">
-                        <i class="fa fa-mobile"></i>
-                        <span class="i18n">Android App</span>
-                    </h3>
-                    <p>
-                        <span class="i18n">Developing System Tools and Online Applications</span><br>
-                        <span class="i18n">with the development team, EXA Lab.,</span><br>
-                        <span class="i18n">which is known for AnLinux Project.</span>
-                    </p>
+                    <div class="talent-pillar">
+                        <h3 class="content-subhead">
+                            <i class="fa fa-mobile"></i>
+                            <span class="i18n">Android App</span>
+                        </h3>
+                        <p>
+                            <span class="i18n">Developing System Tools and Online Applications</span><br />
+                            <span class="i18n">with the development team, EXA Lab.,</span><br />
+                            <span class="i18n">which is known for AnLinux Project.</span>
+                        </p>
+                    </div>
                 </div>
                 <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
-                    <h3 class="content-subhead">
-                        <i class="fa fa-th-large"></i>
-                        <span class="i18n">Software</span>
-                    </h3>
-                    <p>
-                        <span class="i18n">Creating commercial software to help clients get the best
-                            experience.</span><br>
-                        <span class="i18n">In recent years, turning to contribute to opensource community.</span><br>
-                        <span class="i18n">Trying make technologies have no gap.</span>
-                    </p>
+                    <div class="talent-pillar">
+                        <h3 class="content-subhead">
+                            <i class="fa fa-th-large"></i>
+                            <span class="i18n">Software</span>
+                        </h3>
+                        <p>
+                            <span class="i18n">Creating commercial software to help clients get the best
+                                experience.</span><br />
+                            <span class="i18n">In recent years, turning to contribute to opensource community.</span><br />
+                            <span class="i18n">Trying make technologies have no gap.</span>
+                        </p>
+                    </div>
                 </div>
                 <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
-                    <h3 class="content-subhead">
-                        <i class="fa fa-check-square-o"></i>
-                        <span class="i18n">Leadership</span>
-                    </h3>
-                    <p>
-                        <span class="i18n">Acted as Product Owner and Scrum Master.</span><br>
-                        <span class="i18n">Led several teams with Scrum Mode.</span><br>
-                        <span class="i18n">Assertive, visionary and communicative.</span>
-                    </p>
+                    <div class="talent-pillar">
+                        <h3 class="content-subhead">
+                            <i class="fa fa-check-square-o"></i>
+                            <span class="i18n">Leadership</span>
+                        </h3>
+                        <p>
+                            <span class="i18n">Acted as Product Owner and Scrum Master.</span><br />
+                            <span class="i18n">Led several teams with Scrum Mode.</span><br />
+                            <span class="i18n">Assertive, visionary and communicative.</span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -121,10 +221,10 @@
                 </div>
             </noscript>
             <div class="pure-g">
-                <div x-data="{ links: $store.socialLinks }" class="l-box-lrg pure-u-1 is-center">
-                    <template x-for="(link, i) in links" x-bind:key="i">
+                <div class="l-box-lrg pure-u-1 is-center">
+                    <template x-for="(link, i) in ($store.socialLinks || [])" x-bind:key="i">
                         <a x-bind:id="link.slug" class="pure-button pure-button-primary" x-bind:href="link.href"
-                            x-text="link.title"></a>
+                            target="_blank" rel="noopener noreferrer" x-text="link.title"></a>
                     </template>
                 </div>
             </div>
@@ -144,28 +244,32 @@
         <div class="content" style="padding-bottom: 100px;">
             <h2 class="content-head is-center i18n">Copyright of my avatar</h2>
             <p class="is-center i18n">
-                The image is a character from &lt;Onmyoji&gt;.
+                The image is a character from &lt;Touhou Project&gt;.
                 To be used for personal using only, as my avatar, non profit.
             </p>
-            <p class="is-center video-box">
-                <iframe src="https://www.youtube.com/embed/jgN0IEw0Ia8" title="【陰陽師本格幻想RPG】不知火のテーマソング『離島の歌』" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </p>
+            <div class="is-center video-box">
+                <iframe src="https://www.youtube.com/embed/a_RcadbsFRc"
+                    title="緋色月下、狂咲ノ絶" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
         </div>
 
         <!-- Footer -->
-        <div class="footer l-box is-center" x-data="{ year: $store.year }">
+        <div class="footer l-box is-center">
             &copy;
-            <span x-text="year"></span>
+            <span x-text="$store.year"></span>
             <a href="https://shiranui.xyz">Shiranui</a>. |
-            <a class="i18n" href="/locale.html">Language (English)</a>
+            <a class="i18n" href="/locale.html" x-on:click="$store.stage.navigate($event, '/locale.html')">Language
+                (English)</a>
         </div>
         <script src="assets/js/render/jquery.min.js?rev=__REV__"></script>
+        <script src="assets/js/content.js?rev=__REV__"></script>
         <script src="assets/js/render/alpine.min.js?rev=__REV__"></script>
         <script src="assets/js/render/i18n.min.js?rev=__REV__"></script>
         <script src="assets/js/locale/bridge.js?rev=__REV__"></script>
         <script src="assets/js/locale/loader.js?rev=__REV__"></script>
         <script src="assets/js/redirect.js?rev=__REV__"></script>
-        <script src="assets/js/content.js?rev=__REV__"></script>
     </div>
 </body>
 

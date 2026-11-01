@@ -20,16 +20,92 @@
             display: none;
         }
     </style>
+    <noscript>
+        <style>
+            .stage-curtain {
+                display: none !important;
+            }
+        </style>
+    </noscript>
 </head>
 
-<body>
+<body x-data>
+    <div class="stage-curtain"
+        x-bind:class="{ 'is-open': $store.stage && $store.stage.phase === 'open', 'is-closing': $store.stage && $store.stage.phase === 'closing' }"
+        aria-hidden="true">
+        <div class="stage-curtain__panel stage-curtain__panel--left"></div>
+        <div class="stage-curtain__panel stage-curtain__panel--right"></div>
+        <div class="stage-curtain__center">
+            <img src="assets/images/wing.png" alt="" width="171" height="150" style="display: none;" />
+            <svg class="wing-stage-emblem" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 171 150" fill="none">
+                <polygon class="wing-branch-poly" points="8,61 64,14 164,114 103,57 64,21 12,66" fill="#231F28" />
+                <g class="wing-crystal wing-crystal--1">
+                    <line x1="22.5" y1="53" x2="22.5" y2="61" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="22.5,60 29,76 22.5,92 16,76" fill="#5CE1E6" />
+                    <polygon class="crystal-highlight" points="22.5,60 29,76 22.5,76" fill="#95EBEF" />
+                </g>
+                <g class="wing-crystal wing-crystal--2">
+                    <line x1="38.5" y1="39" x2="38.5" y2="47" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="38.5,46 45,62 38.5,78 32,62" fill="#3876F2" />
+                    <polygon class="crystal-highlight" points="38.5,46 45,62 38.5,62" fill="#7EA6F7" />
+                </g>
+                <g class="wing-crystal wing-crystal--3">
+                    <line x1="54.5" y1="26" x2="54.5" y2="35" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="54.5,34 61,50 54.5,66 48,50" fill="#8C52FF" />
+                    <polygon class="crystal-highlight" points="54.5,34 61,50 54.5,50" fill="#B58CFF" />
+                </g>
+                <g class="wing-crystal wing-crystal--4">
+                    <line x1="71.5" y1="26" x2="71.5" y2="36" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="71.5,35 78,50.5 71.5,66 65,50.5" fill="#FF66C4" />
+                    <polygon class="crystal-highlight" points="71.5,35 78,50.5 71.5,50.5" fill="#FF9CD9" />
+                </g>
+                <g class="wing-crystal wing-crystal--5">
+                    <line x1="87.5" y1="41" x2="87.5" y2="52" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="87.5,51 94,66.5 87.5,82 81,66.5" fill="#FF914D" />
+                    <polygon class="crystal-highlight" points="87.5,51 94,66.5 87.5,66.5" fill="#FFB78B" />
+                </g>
+                <g class="wing-crystal wing-crystal--6">
+                    <line x1="103.5" y1="57" x2="103.5" y2="68" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="103.5,67 110,82.5 103.5,98 97,82.5" fill="#FFDE59" />
+                    <polygon class="crystal-highlight" points="103.5,67 110,82.5 103.5,82.5" fill="#FFEA93" />
+                </g>
+                <g class="wing-crystal wing-crystal--7">
+                    <line x1="119.5" y1="74" x2="119.5" y2="84" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="119.5,83 126,98.5 119.5,114 113,98.5" fill="#7ED957" />
+                    <polygon class="crystal-highlight" points="119.5,83 126,98.5 119.5,98.5" fill="#ABE692" />
+                </g>
+                <g class="wing-crystal wing-crystal--8">
+                    <line x1="135.5" y1="90" x2="135.5" y2="100" stroke="#231F28" stroke-width="2.2" />
+                    <polygon points="135.5,99 142,114.5 135.5,130 129,114.5" fill="#5CE1E6" />
+                    <polygon class="crystal-highlight" points="135.5,99 142,114.5 135.5,114.5" fill="#95EBEF" />
+                </g>
+            </svg>
+            <div class="stage-curtain__caption">白き肌 照らすのは 緋色月</div>
+        </div>
+    </div>
+
     <!-- Main -->
+    <div class="header">
+        <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+            <a class="pure-menu-heading" href="/" x-on:click="$store.stage.navigate($event, '/')">
+                <img class="menu-avatar" src="assets/images/avatar.jpg" alt="不知火 Shiranui" />
+                <span class="menu-brand-text">
+                    <span class="menu-brand-title">不知火</span>
+                    <span class="menu-brand-subtitle">Shiranui</span>
+                </span>
+            </a>
+            <div class="home-menu__nav">
+                <a class="home-menu__link i18n" href="/" x-on:click="$store.stage.navigate($event, '/')">Return</a>
+            </div>
+        </div>
+    </div>
+
     <div class="splash-wrapper">
         <div class="content">
-            <h2 class="content-head is-center">Switch Language</h2>
-            <p class="is-center">Select the language you prefer.</p>
+            <h2 class="content-head is-center i18n">Switch Language</h2>
+            <p class="is-center i18n">Select the language you prefer.</p>
             <noscript>
-                <p class="is-center">Please enable JavaScript to use this page.</p>
+                <p class="is-center i18n">Please enable JavaScript to use this page.</p>
             </noscript>
             <div id="locale-box" class="pure-g">
                 <div class="l-box-lrg pure-u-1 is-center">
@@ -44,15 +120,17 @@
         </div>
 
         <!-- Footer -->
-        <div class="footer l-box is-center" x-data="{ year: $store.year }">
+        <div class="footer l-box is-center">
             &copy;
-            <span x-text="year"></span>
+            <span x-text="$store.year"></span>
             <a href="https://shiranui.xyz">Shiranui</a>.
         </div>
         <script src="assets/js/render/jquery.min.js?rev=__REV__"></script>
-        <script src="assets/js/render/alpine.min.js?rev=__REV__"></script>
-        <script src="assets/js/locale/bridge.js?rev=__REV__"></script>
         <script src="assets/js/content.js?rev=__REV__"></script>
+        <script src="assets/js/render/alpine.min.js?rev=__REV__"></script>
+        <script src="assets/js/render/i18n.min.js?rev=__REV__"></script>
+        <script src="assets/js/locale/bridge.js?rev=__REV__"></script>
+        <script src="assets/js/locale/loader.js?rev=__REV__"></script>
         <script>
             (() => {
                 $("#locale-box").fadeIn(1000);

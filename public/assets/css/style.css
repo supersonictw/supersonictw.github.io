@@ -1,24 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap');
+
+:root {
+    --stage-bg: #FAF9F6;
+    --stage-surface: #FFFFFF;
+    --stage-surface-soft: #F5F2ED;
+    --sumi-ink: #1E1B24;
+    --sumi-secondary: #585266;
+    --sumi-muted: #857E94;
+    --scarlet: #C83E4D;
+    --scarlet-deep: #9B2836;
+    --scarlet-soft: rgba(200, 62, 77, 0.08);
+    --gold-line: rgba(216, 169, 75, 0.45);
+    --border-hairline: rgba(30, 27, 36, 0.13);
+    --border-strong: rgba(30, 27, 36, 0.28);
+
+    /* Flandre Crystal Wing 8-Prism Spectrum */
+    --prism-1: #5CE1E6;
+    --prism-2: #3876F2;
+    --prism-3: #8C52FF;
+    --prism-4: #FF66C4;
+    --prism-5: #FF914D;
+    --prism-6: #FFDE59;
+    --prism-7: #7ED957;
+    --prism-8: #5CE1E6;
+    --prism-gradient: linear-gradient(
+        90deg,
+        #5CE1E6 0%,
+        #3876F2 14%,
+        #8C52FF 28%,
+        #FF66C4 43%,
+        #FF914D 58%,
+        #FFDE59 72%,
+        #7ED957 86%,
+        #5CE1E6 100%
+    );
+
+    --font-display: 'Shippori Mincho', 'Noto Serif TC', 'Yu Mincho', 'Hiragino Mincho ProN', Georgia, serif;
+    --font-sans: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
-/*
- * -- BASE STYLES --
- * Most of these are inherited from Base, but I want to change a few.
- */
+html {
+    scroll-behavior: smooth;
+    background-color: var(--stage-bg);
+}
+
 body {
-    line-height: 1.7em;
-    color: #7f8c8d;
-    font-size: 13px;
+    line-height: 1.8;
+    color: var(--sumi-secondary);
+    background-color: var(--stage-bg);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
 }
 
 a,
 a:link,
 a:visited {
-    color: #7f8c8d;
+    color: var(--sumi-ink);
     text-decoration: none;
+    transition: color 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+a:hover {
+    color: var(--scarlet);
 }
 
 h1,
@@ -28,7 +79,9 @@ h4,
 h5,
 h6,
 label {
-    color: #34495e;
+    color: var(--sumi-ink);
+    font-family: var(--font-display);
+    font-weight: 600;
 }
 
 .pure-img-responsive {
@@ -37,27 +90,320 @@ label {
 }
 
 /*
+ * -- STAGE CURTAIN & CRYSTAL WING LOADING / TRANSITION OVERLAY --
+ */
+.stage-curtain {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: all;
+    overflow: hidden;
+}
+
+.stage-curtain.is-open {
+    pointer-events: none;
+}
+
+.stage-curtain__panel {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50.5%;
+    background-color: var(--stage-bg);
+    background-image:
+        repeating-linear-gradient(
+            90deg,
+            rgba(30, 27, 36, 0.02) 0px,
+            rgba(30, 27, 36, 0.02) 1px,
+            transparent 1px,
+            transparent 36px
+        ),
+        radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.96), rgba(246, 243, 238, 0.98));
+    transition: transform 0.78s cubic-bezier(0.76, 0, 0.24, 1);
+    will-change: transform;
+}
+
+.stage-curtain__panel--left {
+    left: 0;
+    border-right: 1px solid rgba(30, 27, 36, 0.12);
+    box-shadow: 12px 0 36px rgba(30, 27, 36, 0.06);
+}
+
+.stage-curtain__panel--right {
+    right: 0;
+    border-left: 1px solid rgba(30, 27, 36, 0.12);
+    box-shadow: -12px 0 36px rgba(30, 27, 36, 0.06);
+}
+
+.stage-curtain__panel--left::after,
+.stage-curtain__panel--right::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(
+        180deg,
+        #5CE1E6 0%,
+        #3876F2 16%,
+        #8C52FF 32%,
+        #FF66C4 48%,
+        #FF914D 64%,
+        #FFDE59 80%,
+        #7ED957 100%
+    );
+    opacity: 0.75;
+}
+
+.stage-curtain__panel--left::after {
+    right: 0;
+}
+
+.stage-curtain__panel--right::after {
+    left: 0;
+}
+
+.stage-curtain.is-open .stage-curtain__panel--left {
+    transform: translate3d(-102%, 0, 0);
+}
+
+.stage-curtain.is-open .stage-curtain__panel--right {
+    transform: translate3d(102%, 0, 0);
+}
+
+.stage-curtain.is-closing .stage-curtain__panel--left,
+.stage-curtain.is-closing .stage-curtain__panel--right {
+    transform: translate3d(0, 0, 0);
+    transition-duration: 0.52s;
+}
+
+.stage-curtain__center {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 2.5rem;
+    transition: opacity 0.48s ease, transform 0.56s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.stage-curtain.is-open .stage-curtain__center {
+    opacity: 0;
+    transform: scale(1.08) translateY(-12px);
+}
+
+.stage-curtain.is-closing .stage-curtain__center {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.wing-stage-emblem {
+    width: 210px;
+    height: 184px;
+    filter: drop-shadow(0 12px 24px rgba(30, 27, 36, 0.08));
+    animation: wingFloat 2.8s ease-in-out infinite alternate;
+}
+
+.wing-branch-poly {
+    transform-origin: 64px 18px;
+    animation: branchReveal 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.wing-crystal {
+    opacity: 0;
+    animation:
+        crystalDropIn 0.46s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+        crystalPendulum 2.2s ease-in-out infinite alternate;
+}
+
+.wing-crystal .crystal-highlight {
+    animation: crystalShimmer 1.8s ease-in-out infinite alternate;
+}
+
+.wing-crystal--1 {
+    transform-origin: 22.5px 53px;
+    animation-delay: 0.06s, 0.52s;
+}
+.wing-crystal--2 {
+    transform-origin: 38.5px 39px;
+    animation-delay: 0.12s, 0.58s;
+}
+.wing-crystal--3 {
+    transform-origin: 54.5px 26px;
+    animation-delay: 0.18s, 0.64s;
+}
+.wing-crystal--4 {
+    transform-origin: 71.5px 26px;
+    animation-delay: 0.24s, 0.70s;
+}
+.wing-crystal--5 {
+    transform-origin: 87.5px 41px;
+    animation-delay: 0.30s, 0.76s;
+}
+.wing-crystal--6 {
+    transform-origin: 103.5px 57px;
+    animation-delay: 0.36s, 0.82s;
+}
+.wing-crystal--7 {
+    transform-origin: 119.5px 74px;
+    animation-delay: 0.42s, 0.88s;
+}
+.wing-crystal--8 {
+    transform-origin: 135.5px 90px;
+    animation-delay: 0.48s, 0.94s;
+}
+
+.stage-curtain__caption {
+    margin-top: 0.85rem;
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    letter-spacing: 0.16em;
+    color: var(--sumi-ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    text-align: center;
+    gap: 0.5rem;
+    max-width: 90vw;
+}
+
+.stage-curtain__caption::before,
+.stage-curtain__caption::after {
+    content: "◇";
+    color: var(--scarlet);
+    font-size: 0.65rem;
+}
+
+@keyframes branchReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.84) rotate(-6deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes crystalDropIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.4);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes crystalPendulum {
+    0% {
+        transform: rotate(-3.5deg);
+    }
+    100% {
+        transform: rotate(3.5deg);
+    }
+}
+
+@keyframes crystalShimmer {
+    0% {
+        opacity: 0.65;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes wingFloat {
+    0% {
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(-5px);
+    }
+}
+
+/*
+ * -- ARCHITECTURAL JAPANESE STAGE RAILS (DESKTOP) --
+ */
+.stage-rail {
+    display: none;
+}
+
+@media (min-width: 68em) {
+    .stage-rail {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 6;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        pointer-events: none;
+        user-select: none;
+    }
+
+    .stage-rail--left {
+        left: 18px;
+    }
+
+    .stage-rail--right {
+        right: 18px;
+    }
+
+    .stage-rail__line {
+        width: 1px;
+        height: 64px;
+        background: linear-gradient(180deg, transparent, rgba(30, 27, 36, 0.25), transparent);
+    }
+
+    .stage-rail__text {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        font-family: var(--font-display);
+        font-size: 11px;
+        letter-spacing: 0.28em;
+        color: var(--sumi-muted);
+    }
+
+    .stage-rail__prisms {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .stage-rail__gem {
+        width: 6px;
+        height: 11px;
+        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        opacity: 0.82;
+    }
+}
+
+/*
  * -- LAYOUT STYLES --
- * These are some useful classes which I will need
  */
 .l-box {
-    padding: 1em;
+    padding: 1.25em;
 }
 
 .l-box-lrg {
     padding: 2em;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid var(--border-hairline);
 }
 
 .is-center {
     text-align: center;
 }
 
-
-
 /*
  * -- PURE FORM STYLES --
- * Style the form inputs and labels
  */
 .pure-form label {
     margin: 1em 0 0;
@@ -66,250 +412,744 @@ label {
 }
 
 .pure-form input[type] {
-    border: 2px solid #ddd;
+    border: 1px solid var(--border-strong);
     box-shadow: none;
     font-size: 100%;
     width: 100%;
     margin-bottom: 1em;
+    background: var(--stage-surface);
 }
 
 /*
- * -- PURE BUTTON STYLES --
- * I want my pure-button elements to look a little different
+ * -- PURE BUTTON STYLES (JAPANESE STAGE TICKET / PLAQUE STYLE) --
  */
 .pure-button {
-    background-color: #cc5f5a;
-    color: white;
-    padding: 0.5em 2em;
-    border-radius: 5px;
+    position: relative;
+    background-color: var(--sumi-ink);
+    color: #FFFFFF !important;
+    padding: 0.65em 2em;
+    border-radius: 2px;
+    border: 1px solid var(--sumi-ink);
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    margin: 0.35em;
+    box-shadow: 0 3px 12px rgba(30, 27, 36, 0.08);
+    overflow: hidden;
+}
+
+.pure-button:hover,
+.pure-button:focus {
+    background-color: var(--scarlet);
+    border-color: var(--scarlet);
+    color: #FFFFFF !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(200, 62, 77, 0.22);
 }
 
 .pure-button .fa {
     margin-right: 0.5em;
 }
 
-a.pure-button-primary {
-    background: white;
-    color: #cc5f5a;
-    border-radius: 5px;
-    font-size: 120%;
+a.pure-button-primary,
+.pure-button-primary {
+    background: var(--stage-surface);
+    color: var(--sumi-ink) !important;
+    border: 1px solid var(--border-strong);
+    border-radius: 2px;
+    font-size: 108%;
+    box-shadow: 0 4px 16px rgba(30, 27, 36, 0.06);
 }
 
+a.pure-button-primary::before,
+.pure-button-primary::before {
+    content: "◇";
+    margin-right: 0.5em;
+    color: var(--scarlet);
+    font-size: 0.85em;
+    transition: color 0.25s ease, transform 0.25s ease;
+    display: inline-block;
+}
+
+a.pure-button-primary:hover,
+a.pure-button-primary:focus,
+.pure-button-primary:hover,
+.pure-button-primary:focus {
+    background: var(--sumi-ink);
+    color: #FFFFFF !important;
+    border-color: var(--sumi-ink);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(30, 27, 36, 0.16);
+}
+
+a.pure-button-primary:hover::before,
+.pure-button-primary:hover::before {
+    color: var(--prism-6);
+    transform: rotate(45deg);
+}
 
 /*
- * -- MENU STYLES --
- * I want to customize how my .pure-menu looks at the top of the page
+ * -- MENU STYLES (STAGE PROSCENIUM HEADER) --
  */
-
 .home-menu {
-    padding: 0.5em;
+    padding: 0.6em 1.5em;
     text-align: center;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.10);
+    background: rgba(255, 255, 255, 0.90);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-hairline);
+    box-shadow: 0 2px 16px rgba(30, 27, 36, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.home-menu {
-    background: #b95756;
+.home-menu::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--prism-gradient);
 }
 
 .pure-menu.pure-menu-fixed {
-    /* Fixed menus normally have a border at the bottom. */
-    border-bottom: none;
-    /* I need a higher z-index here because of the scroll-over effect. */
-    z-index: 4;
+    border-bottom: 1px solid var(--border-hairline);
+    z-index: 10;
 }
 
 .home-menu .pure-menu-heading {
-    color: white;
-    font-weight: 400;
-    font-size: 120%;
+    color: var(--sumi-ink) !important;
+    font-family: var(--font-display);
+    font-weight: 700;
+    padding: 0.2em 0.5em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75em;
+    text-transform: none;
+    line-height: 1.15;
 }
 
-.home-menu .pure-menu-selected a {
-    color: white;
+.home-menu .menu-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--border-hairline);
+    box-shadow: 0 1px 4px rgba(30, 27, 36, 0.12);
+    display: inline-block;
+    vertical-align: middle;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    flex-shrink: 0;
 }
 
-.home-menu a {
-    color: #6FBEF3;
+.home-menu .pure-menu-heading:hover .menu-avatar {
+    transform: scale(1.08);
+    box-shadow: 0 2px 8px rgba(200, 62, 77, 0.25);
 }
 
-.home-menu li a:hover,
-.home-menu li a:focus {
-    background: none;
-    border: none;
-    color: #AECFE5;
+.home-menu .menu-brand-text {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    line-height: 1.15;
 }
 
+.home-menu .menu-brand-title {
+    font-family: var(--font-display);
+    font-size: 1.08rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--sumi-ink);
+}
+
+.home-menu .menu-brand-subtitle {
+    font-family: var(--font-display);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    color: var(--scarlet);
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+.home-menu__nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.2rem;
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    letter-spacing: 0.08em;
+}
+
+.home-menu__link {
+    color: var(--sumi-secondary) !important;
+    padding: 0.25em 0.5em;
+    position: relative;
+}
+
+.home-menu__link::after {
+    content: "";
+    position: absolute;
+    left: 0.5em;
+    right: 0.5em;
+    bottom: 0;
+    height: 1.5px;
+    background: var(--scarlet);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.25s ease;
+}
+
+.home-menu__link:hover {
+    color: var(--scarlet) !important;
+}
+
+.home-menu__link:hover::after {
+    transform: scaleX(1);
+}
 
 /*
- * -- SPLASH STYLES --
- * This is the blue top section that appears on the page.
+ * -- SPLASH STYLES (SUNLIT STAINED-GLASS WHITE STAGE) --
  */
-
 .splash-container {
-    background: #f77e66;
+    background-color: var(--stage-bg);
+    background-image:
+        radial-gradient(circle at 18% 22%, rgba(92, 225, 230, 0.14) 0%, transparent 42%),
+        radial-gradient(circle at 82% 26%, rgba(255, 102, 196, 0.13) 0%, transparent 44%),
+        radial-gradient(circle at 50% 78%, rgba(255, 222, 89, 0.14) 0%, transparent 48%),
+        radial-gradient(circle at 30% 65%, rgba(140, 82, 255, 0.09) 0%, transparent 38%),
+        linear-gradient(125deg, transparent 49.4%, rgba(30, 27, 36, 0.045) 49.5%, rgba(30, 27, 36, 0.045) 50.5%, transparent 50.6%),
+        linear-gradient(55deg, transparent 49.4%, rgba(30, 27, 36, 0.045) 49.5%, rgba(30, 27, 36, 0.045) 50.5%, transparent 50.6%),
+        repeating-linear-gradient(0deg, transparent 0px, transparent 79px, rgba(30, 27, 36, 0.035) 80px),
+        repeating-linear-gradient(90deg, transparent 0px, transparent 79px, rgba(30, 27, 36, 0.035) 80px);
     z-index: 1;
     overflow: hidden;
-    /* The following styles are required for the "scroll-over" effect */
     width: 100%;
     height: 88%;
     top: 0;
     left: 0;
     position: fixed !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Subtle stage spotlight arch in hero background */
+.splash-container::before {
+    content: "";
+    position: absolute;
+    width: 560px;
+    height: 560px;
+    border-radius: 50%;
+    border: 1px solid rgba(30, 27, 36, 0.08);
+    box-shadow: inset 0 0 80px rgba(255, 255, 255, 0.9);
+    pointer-events: none;
+}
+
+.splash-container::after {
+    content: "";
+    position: absolute;
+    width: 280px;
+    height: 245px;
+    top: 13%;
+    right: 11%;
+    background: url('../images/wing.svg') no-repeat center / contain;
+    opacity: 0.14;
+    pointer-events: none;
+    animation: wingFloat 4s ease-in-out infinite alternate;
 }
 
 .splash {
-    /* absolute center .splash within .splash-container */
-    width: 80%;
-    height: 50%;
+    width: 88%;
+    max-width: 760px;
     margin: auto;
-    position: absolute;
-    top: 100px;
-    left: 0;
-    bottom: 0;
-    right: 0;
+    position: relative;
+    z-index: 2;
     text-align: center;
-    text-transform: uppercase;
+    padding: 2.2rem 1.5rem;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--border-strong);
+    box-shadow:
+        0 20px 50px rgba(30, 27, 36, 0.06),
+        inset 0 0 0 5px var(--stage-surface),
+        inset 0 0 0 6px var(--border-hairline);
 }
 
-/* This is the main heading that appears on the blue section */
+.splash::before {
+    content: "Shiranui ◇  不知火";
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    letter-spacing: 0.34em;
+    color: var(--scarlet);
+    margin-bottom: 1.1rem;
+}
+
+/* Main heading on the white stage */
 .splash-head {
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    border: 3px solid white;
-    padding: 1em 1.6em;
-    font-weight: 100;
-    border-radius: 5px;
-    line-height: 1em;
+    font-size: 1.5rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--sumi-ink);
+    border-top: 1px solid var(--border-strong);
+    border-bottom: 1px solid var(--border-strong);
+    padding: 0.85em 1.2em;
+    margin: 0 auto 0.9em;
+    line-height: 1.55;
+    letter-spacing: 0.08em;
+    position: relative;
+    min-height: 4.8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* This is the subheading that appears on the blue section */
+.typing-target {
+    white-space: pre-line;
+    display: inline-block;
+    text-align: center;
+}
+
+.typing-target::after {
+    content: "";
+    display: inline-block;
+    width: 2px;
+    height: 1.05em;
+    background-color: var(--scarlet);
+    margin-left: 4px;
+    vertical-align: -0.12em;
+    animation: cursorBlink 0.9s steps(2, start) infinite;
+}
+
+@keyframes cursorBlink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Subheading on the white stage */
 .splash-subhead {
-    color: white;
-    letter-spacing: 0.05em;
-    opacity: 0.8;
+    color: var(--sumi-secondary);
+    font-family: var(--font-display);
+    font-size: 1.02rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.6rem;
 }
 
 /*
- * -- CONTENT STYLES --
- * This represents the content area (everything below the blue section)
+ * -- CONTENT STYLES (SCROLL-OVER WHITE STAGE ACTS) --
  */
 .content-wrapper {
-    /* These styles are required for the "scroll-over" effect */
     position: absolute;
     top: 87%;
     width: 100%;
     min-height: 12%;
     z-index: 2;
-    background: white;
-
+    background: var(--stage-surface);
+    border-top: 1px solid var(--border-strong);
+    box-shadow: 0 -16px 40px rgba(30, 27, 36, 0.06);
 }
 
-/* We want to give the content area some more padding */
+.content-wrapper::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: var(--prism-gradient);
+}
+
+.splash-wrapper {
+    min-height: 100vh;
+    padding-top: 4.5rem;
+    padding-bottom: 5rem;
+    background-color: var(--stage-bg);
+    background-image:
+        radial-gradient(circle at 15% 18%, rgba(92, 225, 230, 0.10) 0%, transparent 40%),
+        radial-gradient(circle at 85% 24%, rgba(255, 102, 196, 0.10) 0%, transparent 42%),
+        radial-gradient(circle at 50% 80%, rgba(255, 222, 89, 0.10) 0%, transparent 45%);
+}
+
 .content {
-    padding: 1em 1em 3em;
+    padding: 2.5em 1.5em 3.5em;
+    max-width: 1120px;
+    margin: 0 auto;
+    position: relative;
 }
 
-/* This is the class used for the main content headers (<h2>) */
+.content + .content {
+    border-top: 1px solid var(--border-hairline);
+}
+
 .content-head {
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin: 2em 0 1em;
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    margin: 1.2em 0 1em;
+    color: var(--sumi-ink);
+    position: relative;
 }
 
-/* This is a modifier class used when the content-head is inside a ribbon */
+.content-head.is-center::after {
+    content: "";
+    display: block;
+    width: 72px;
+    height: 2px;
+    margin: 0.65em auto 0;
+    background: var(--prism-gradient);
+}
+
 .content-head-ribbon {
-    color: white;
+    color: var(--sumi-ink);
+    border-left: 3px solid var(--scarlet);
+    padding-left: 0.65em;
+    margin-top: 0.4em;
 }
 
-/* This is the class used for the content sub-headers (<h3>) */
 .content-subhead {
-    color: #cc5f5a;
+    color: var(--sumi-ink);
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    margin-top: 0.4em;
 }
 
 .content-subhead i {
-    margin-right: 7px;
-}
-
-/* This is the class used for the dark-background areas. */
-.ribbon {
-    background: #cc5f5a;
-    color: #eee;
-}
-
-/* This is the class used for the footer */
-.footer {
-    background: #b95756;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    color: #fff;
-}
-
-.footer a {
-    color: #fff;
+    margin-right: 10px;
+    color: var(--scarlet);
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-strong);
+    background: var(--stage-bg);
+    font-size: 0.9em;
 }
 
 /*
- * -- TABLET (AND UP) MEDIA QUERIES --
- * On tablets and other medium-sized devices, we want to customize some
- * of the mobile styles.
+ * -- PROFILE SPOTLIGHT ACT (.ribbon) --
  */
-@media (min-width: 48em) {
+.ribbon {
+    background-color: var(--stage-bg);
+    background-image:
+        radial-gradient(circle at 22% 50%, rgba(200, 62, 77, 0.06) 0%, transparent 48%),
+        radial-gradient(circle at 78% 30%, rgba(92, 225, 230, 0.09) 0%, transparent 45%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(249, 246, 240, 0.96) 100%);
+    color: var(--sumi-secondary);
+    border-bottom: 1px solid var(--border-hairline);
+    padding: 3.5em 1.5em;
+    position: relative;
+}
 
-    /* We increase the body font size */
+.avatar-stage-frame {
+    display: inline-block;
+    position: relative;
+    padding: 10px;
+    background: var(--stage-surface);
+    border: 1px solid var(--border-strong);
+    box-shadow:
+        0 16px 38px rgba(30, 27, 36, 0.10),
+        inset 0 0 0 4px var(--stage-bg),
+        inset 0 0 0 5px var(--gold-line);
+}
+
+.avatar-stage-frame::before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: 16px;
+    right: 16px;
+    height: 3px;
+    background: var(--prism-gradient);
+}
+
+.avatar-stage-frame::after {
+    content: "";
+    position: absolute;
+    right: -18px;
+    bottom: -14px;
+    width: 68px;
+    height: 60px;
+    background: url('../images/wing.svg') no-repeat center / contain;
+    filter: drop-shadow(0 4px 10px rgba(30, 27, 36, 0.15));
+    pointer-events: none;
+}
+
+.avatar-stage-frame img {
+    display: block;
+    border: 1px solid var(--border-hairline);
+}
+
+/*
+ * -- TALENT STAGE PILLARS --
+ */
+.talent-pillar {
+    background: var(--stage-surface);
+    border: 1px solid var(--border-hairline);
+    padding: 1.6em 1.4em;
+    height: 100%;
+    position: relative;
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.talent-pillar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--scarlet);
+}
+
+.pure-g > div:nth-child(1) .talent-pillar::before { background: var(--prism-1); }
+.pure-g > div:nth-child(2) .talent-pillar::before { background: var(--prism-2); }
+.pure-g > div:nth-child(3) .talent-pillar::before { background: var(--prism-3); }
+.pure-g > div:nth-child(4) .talent-pillar::before { background: var(--prism-4); }
+
+.talent-pillar:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-strong);
+    box-shadow: 0 12px 28px rgba(30, 27, 36, 0.07);
+}
+
+/*
+ * -- VIDEO STAGE FRAME --
+ */
+.video-box {
+    max-width: 920px;
+    margin: 1.8em auto 0;
+    padding: 12px;
+    background: var(--stage-bg);
+    border: 1px solid var(--border-strong);
+    box-shadow:
+        0 14px 36px rgba(30, 27, 36, 0.08),
+        inset 0 0 0 4px var(--stage-surface),
+        inset 0 0 0 5px var(--border-hairline);
+    position: relative;
+}
+
+.video-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--prism-gradient);
+}
+
+.video-box iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    min-height: 260px;
+    display: block;
+    border: 1px solid var(--border-hairline);
+}
+
+/*
+ * -- GALLERY CARDS (JAPANESE STAGE PLAYBILL) --
+ */
+.gallery-card-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 28px;
+    margin-top: 32px;
+    margin-bottom: 60px;
+}
+
+.gallery-card {
+    text-align: center;
+    width: calc(33.333% - 28px);
+    min-width: 270px;
+    padding: 2.2em 1.6em 1.8em;
+    background: var(--stage-surface);
+    border: 1px solid var(--border-strong);
+    box-shadow:
+        0 10px 28px rgba(30, 27, 36, 0.05),
+        inset 0 0 0 4px var(--stage-bg),
+        inset 0 0 0 5px var(--border-hairline);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease;
+}
+
+.gallery-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3.5px;
+    background: var(--card-prism, var(--scarlet));
+}
+
+.gallery-card:nth-child(8n+1) { --card-prism: var(--prism-1); }
+.gallery-card:nth-child(8n+2) { --card-prism: var(--prism-2); }
+.gallery-card:nth-child(8n+3) { --card-prism: var(--prism-3); }
+.gallery-card:nth-child(8n+4) { --card-prism: var(--prism-4); }
+.gallery-card:nth-child(8n+5) { --card-prism: var(--prism-5); }
+.gallery-card:nth-child(8n+6) { --card-prism: var(--prism-6); }
+.gallery-card:nth-child(8n+7) { --card-prism: var(--prism-7); }
+.gallery-card:nth-child(8n+8) { --card-prism: var(--prism-8); }
+
+.gallery-card:hover {
+    transform: translateY(-5px);
+    box-shadow:
+        0 18px 36px rgba(30, 27, 36, 0.10),
+        inset 0 0 0 4px var(--stage-bg),
+        inset 0 0 0 5px var(--border-strong);
+}
+
+.gallery-card-header h2 {
+    margin-top: 0;
+    margin-bottom: 0.55em;
+    font-size: 1.35rem;
+    letter-spacing: 0.06em;
+}
+
+.gallery-card-content {
+    color: var(--sumi-secondary);
+    line-height: 1.7;
+    margin-bottom: 1.2em;
+}
+
+.gallery-card-actions {
+    margin-top: auto;
+    padding-top: 1em;
+    border-top: 1px dashed var(--border-hairline);
+}
+
+.gallery-card a.pure-button.gallery-primary {
+    background-color: var(--sumi-ink);
+    color: #FFFFFF !important;
+    border-color: var(--sumi-ink);
+}
+
+.gallery-card a.pure-button.gallery-primary:hover {
+    background-color: var(--scarlet);
+    border-color: var(--scarlet);
+}
+
+.gallery-card a.pure-button.gallery-secondary {
+    background: var(--stage-surface);
+    color: var(--sumi-ink) !important;
+    border: 1px solid var(--border-strong);
+}
+
+.gallery-card a.pure-button.gallery-secondary:hover {
+    background: var(--stage-bg);
+    color: var(--scarlet) !important;
+    border-color: var(--scarlet);
+}
+
+/*
+ * -- FOOTER STYLES --
+ */
+.footer {
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    color: var(--sumi-secondary);
+    border-top: 1px solid var(--border-hairline);
+    z-index: 9;
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    letter-spacing: 0.06em;
+}
+
+.footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--prism-gradient);
+    opacity: 0.7;
+}
+
+.footer a {
+    color: var(--sumi-ink);
+    font-weight: 600;
+}
+
+.footer a:hover {
+    color: var(--scarlet);
+}
+
+/*
+ * -- TABLET & DESKTOP MEDIA QUERIES --
+ */
+@media (max-width: 48em) {
+    .gallery-card {
+        width: 100%;
+        margin: 0 12px;
+    }
+
+    .splash {
+        width: 92%;
+        padding: 1.6rem 1rem;
+    }
+}
+
+@media (min-width: 48em) {
     body {
         font-size: 16px;
     }
 
-    /* We can align the menu header to the left, but float the
-    menu items to the right. */
     .home-menu {
         text-align: left;
     }
 
-    .home-menu ul {
-        float: right;
+    .splash {
+        width: 68%;
+        padding: 2.8rem 2.6rem;
     }
 
-    /* We increase the height of the splash-container */
-    /*    .splash-container {
-        height: 500px;
-    }*/
+    .splash-head {
+        font-size: 210%;
+    }
 
-    /* We decrease the width of the .splash, since we have more width
-    to work with */
-    .splash {
-        width: 50%;
-        height: 50%;
+    .l-box-lrg {
+        border: none;
+    }
+}
+
+@media (min-width: 78em) {
+    .video-box iframe {
+        height: 505px;
     }
 
     .splash-head {
         font-size: 250%;
     }
-
-
-    /* We remove the border-separator assigned to .l-box-lrg */
-    .l-box-lrg {
-        border: none;
-    }
-
 }
 
-/*
- * -- DESKTOP (AND UP) MEDIA QUERIES --
- * On desktops and other large devices, we want to over-ride some
- * of the mobile and tablet styles.
- */
-@media (min-width: 78em) {
-    .video-box iframe {
-        width: 898px;
-        height: 505px;
-    }
-
-    /* We increase the header font size even more */
-    .splash-head {
-        font-size: 300%;
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }
