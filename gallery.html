@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.1/grids-responsive-min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
-    <link rel="stylesheet" href="assets/css/style.css?rev=1793522165" />
+    <link rel="stylesheet" href="assets/css/style.css?rev=1793523339" />
     <noscript>
         <style>
             .stage-curtain {
@@ -104,10 +104,18 @@
                     <span class="menu-brand-subtitle">Shiranui</span>
                 </span>
             </a>
-            <div class="home-menu__nav">
-                <a class="home-menu__link i18n" href="/" x-on:click="$store.stage.navigate($event, '/')">Return</a>
+            <button class="menu-toggle" type="button" aria-label="Menu"
+                x-on:click="$store.menu.toggle()"
+                x-bind:class="{ 'is-active': $store.menu.isOpen }">
+                <span class="menu-toggle__line"></span>
+                <span class="menu-toggle__line"></span>
+                <span class="menu-toggle__line"></span>
+            </button>
+            <div class="home-menu__nav" x-bind:class="{ 'is-open': $store.menu.isOpen }">
+                <a class="home-menu__link i18n" href="/"
+                    x-on:click="$store.menu.close(); $store.stage.navigate($event, '/')">Return</a>
                 <a class="home-menu__link i18n" href="/locale.html"
-                    x-on:click="$store.stage.navigate($event, '/locale.html')">Language (English)</a>
+                    x-on:click="$store.menu.close(); $store.stage.navigate($event, '/locale.html')">Language (English)</a>
             </div>
         </div>
     </div>
@@ -146,12 +154,12 @@
             <a class="i18n" href="/locale.html" x-on:click="$store.stage.navigate($event, '/locale.html')">Language
                 (English)</a>
         </div>
-        <script src="assets/js/render/jquery.min.js?rev=1793522165"></script>
-        <script src="assets/js/content.js?rev=1793522165"></script>
-        <script src="assets/js/render/alpine.min.js?rev=1793522165"></script>
-        <script src="assets/js/render/i18n.min.js?rev=1793522165"></script>
-        <script src="assets/js/locale/bridge.js?rev=1793522165"></script>
-        <script src="assets/js/locale/loader.js?rev=1793522165"></script>
+        <script src="assets/js/render/jquery.min.js?rev=1793523339"></script>
+        <script src="assets/js/content.js?rev=1793523339"></script>
+        <script src="assets/js/render/alpine.min.js?rev=1793523339"></script>
+        <script src="assets/js/render/i18n.min.js?rev=1793523339"></script>
+        <script src="assets/js/locale/bridge.js?rev=1793523339"></script>
+        <script src="assets/js/locale/loader.js?rev=1793523339"></script>
     </div>
 
 </body>
